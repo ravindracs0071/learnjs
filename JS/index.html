@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <pre>
+
+    this e.g.
+    var foo = 'foo';
+    var myObj = { foo: 'I am at myObj.foo' };
+    var callFunc = function() { console.log(this['foo']); } ;
+
+    //borrow function
+    myObj.CallFunc = CallFunc;
+    
+    //invoke
+    myObj.CallFunc(); //I am at myObj.foo
+     
+    callFun(); //foo
+
+
+    Day 1: Hosting, Prototypes, var let
+    Day 2: Call, Apply, Bind, Closure, ECMA Script (need to Ready) 
+
+    call(), apply() and bind() Methods in JavaScript.
+
+    when setting this value.
+    Basic rule:
+    this always refers to an object
+    this refers to an object which calls the function it contains
+    global context "this" refers to either window object or is undefined if the 'strict mode' is used.
+
+    * when a function is created keyword this is created. 
+    this is used inside of functions to refer to the object the function is contained within, as opposed to the function itself.
+    determined : based on context in which function is called in runtime.
+
+    var obj1 = {
+        prop1: "Property 1",
+        prop2: 123,
+
+        func1: function() {
+            console.log('call func1');
+            console.log(this);
+        }
+    };
+
+    obj1.func1(); this refers to obj1
+
+    Note: bind call apply : these are tools for borrowing a function in javascripts.
+    borrow a Methods
+    var func2 = obj1.func1;
+    func2();
+    //this is now assign to global context
+
+
+
+    solving such cases using Bind
+    Bind():
+    ECMA Script 5, method of Function.prototype property, means bind can be used by every single function.'
+    
+    var func2 = obj1.func1.bind(obj1);
+    func2();
+
+    if func1 is parameterized
+
+    var func2 = obj1.func1.bind(obj1, 'param1');
+    func2();
+
+    call and apply:
+
+    slightly different, belong to Function.prototype property.
+
+    var car = {
+        prop1: "Property 1",
+        prop2: 112121 
+     }; 
+     function func1(param1) {
+         console.log("Call func1" + this.prop1);
+     }
+
+     apply use:
+     func1.apply(obj1, ["param val 1"]); //param val 1 property 1
+
+     call use:
+     func1.call(obj1, "param val 1"); //param val 1 property 1
+
+     
+
+     e.g.
+     var func = function() {
+        console.log(this)
+    }.bind(1);
+    
+    func();
+
+
+    var func = function() {
+        console.log(this)
+    }.bind(1);
+     
+     var obj = {
+        callFun : func
+     }
+    obj.callFun.func();
+
+
+
+    function checkFun(a, b, c){
+        console.log(this);
+        console.log(a);
+        console.log(b);
+        console.log(c);
+    }
+    checkFun.call(1,2,3,4);
+
+
+
+    function checkFun(a, b, c){
+        console.log(this);
+        console.log(a);
+        console.log(b);
+        console.log(c);
+    }
+    checkFun.apply(1,[2,3,4]);
+
+
+
+    function sumOfNumbers() {
+        var total = 0;
+        for(var i = 0; i < arguments.length; i++){
+            total += arguments[i];
+        }
+        return total;
+    }
+    var sum = sumOfNumbers(1,2,3);
+    console.log(sum);
+
+
+    function updateZipCode() {
+        console.log(this)
+    }
+    updateZipCode.call(1);
+
+
+    var updateZipCode = function () {
+        console.log(this);
+    };
+    updateZipCode.call({});
+
+
+    var updateZipCode = function () {
+        console.log(this);
+    };
+    updateZipCode.call({ zip: '11787'});
+
+
+
+    var updateZipCode = function (newZip, country) {
+        console.log(newZip + ' ' + country);
+    };
+    var zipCode = {
+        zip: '11787'
+    };
+    updateZipCode.call(zipCode, '11888', 'us');
+
+
+
+    "use strict";
+var person = {
+    name : "Jack",
+    prop : {
+        name : "Daniel",
+        getName : function() {
+            return this.name;
+        }
+    }
+}
+
+var name = person.prop.getName.bind(person);
+console.log(name());
+
+var  name = person.prop.getName();
+console.log(name);
+</pre>
+
+
+
+Closure:
+    function foo() {
+    var x = 4; // declaration in outer scope
+    function bar() {
+    console.log(x); // outer scope is captured on declaration
+    }
+    return bar;
+    // x goes out of scope after foo returns
+    }
+    var barWithX = foo();
+    barWithX(); // we can still access x
+    
+    when foo is called , its context is captured in the function bar. 
+    so even after its return, bar can still access and modifiled x.
+    This function foo, whose context is captured in another function is saied to be closures.
+
+
+    private data e.g.
+    function makeCounter () {
+       var c = 0;
+       return { 
+           value: function() { return c;},
+           incr: function() {c++;}
+        };
+    }
+
+    var a = makeCounter();
+    var b = makeCounter();
+    a.incr();
+
+    a.value(); //1
+    b.value(); //0
+
+
+</body>
+</html>
