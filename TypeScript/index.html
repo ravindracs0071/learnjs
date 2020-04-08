@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='index.css'>
+    <script src='index.js'></script>
+</head>
+<body>
+    <pre>
+        Day 3
+        Note: A transpiler is a type of compiler that takes the source code of a
+        programming language as its input and outputs the source code into another
+        programming language with more or less the same level of abstraction
+
+        Introducing TypeScript
+        cross platform tool, open source
+        TypeScript is superset of Javascript. any valid JavaScript program also called TypeScript.
+        micrsoft introduced a best way to identity and prevent potential run time issues.
+        ,strongly typed programming language, static type checking at compile time.
+        structuring mechanism for large piece of code - adds class based object oriention, interface, modules 
+
+        // by default method / props - public
+        class Greeter {
+            message: string;
+            constructor(message: string) {
+             this.message = message;
+            }
+            greet() {
+                return "Hello "+this.message;
+            }
+        } 
+        
+        const greeting = new Greeter("Ravindra");
+        
+        console.log(greeting.greet()); // Hello Ravindra
+
+
+         - Understanding the case for TypeScript
+         - Types in TypeScript
+           boolean, 
+           number, 
+           string, 
+           Array i.e. var list: number[]; , 
+           enum    = enum Color { Red, Green, Blue } , - friendly names to sets of numeric values
+           
+           any , 
+           void  - function test() : void {
+               alert('a');
+           }
+
+           //null, undefined   
+
+         - Functions, lambdas, and execution flow
+        //function greet(name: string) : string {
+            return "Hi, " + name;
+        }
+
+
+        Arrow Operator (=>)
+        Skip usage of function keyword
+        also know as arrow function 
+
+        var greet = (name: string): string => { return "Hi, " + name; };
+        console.log(greet('ravindra'));
+
+        Interface:
+        to enforce a class to follow the specifications in a particular contract.
+        interface ILogger {
+            log(arg: any) : void;
+        }
+        
+        class Logger implements ILogger {
+            log(arg: any): void {
+                console.log(arg);
+            }
+        }
+        
+        let logger = new Logger();
+        logger.log("Logged data");
+
+        Namespaces :
+        known as internal modules, used to encapsulate features and objects that share a certain relationship.
+        organize your code, cleaner way
+        to declare namespace in TypeScript use namespace and export keywords.
+        
+        namespace Geometry {
+            interface IVector {
+                getPoint(x: number, y: number) : void;
+            }
+            export interface IVector2D {
+             getPoint2D(x: number, y: number) : void;
+            }
+         
+            export class Vector implements IVector, IVector2D {
+                getPoint2D(x: number, y: number): void {
+                    console.log("Method : getPoint2D");
+                }
+                
+                getPoint(x: number, y: number): void {
+                    console.log("Method : getPoint");
+                }
+            }
+         }
+         
+         
+         var inst: Geometry.IVector2D = new Geometry.Vector();
+         inst.getPoint2D(1, 2);
+         
+         
+         Rest syntax/parameter
+         function with rest parameter -- 
+         function add(...nums: number[]) {
+            var total : number = 0;
+            for(var i = 0; i < nums.length; i++) { 
+                total += nums[i];
+            }
+            return total;
+        }
+        
+        console.log(add(1, 2));
+        console.log(add(1, 2, 3));
+
+        //Spread - spread the values in an iterable (arrays , string) across zero or more arguments or elements.
+        // Combind two array
+
+        const arr2 = [5, 6, 7, 8];
+        const arr1 = [1, 2, 3, 4, arr2];
+
+        console.log(arr1); // [1, 2, 3, 4, [5, 6, 7, 8]]
+        
+        //sol
+        const arr2 = [5, 6, 7, 8];
+        const arr1 = [1, 2, 3, 4];
+        console.log([...arr1, ...arr2]);
+
+        const arr2 = [5, 6, 7, 8];
+        const arr1 = [1, 2, 3, 4, ...arr2];
+        console.log(arr1);
+
+        
+        
+         - General features (Spread parameter)
+         - Classes, interfaces, and class inheritance
+         - Decorators in TypeScript
+         - Organizing our applications with modules (Internal modules)
+
+
+    </pre>
+</body>
+</html>
